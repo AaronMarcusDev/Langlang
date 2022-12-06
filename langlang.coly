@@ -1,0 +1,228 @@
+// Macros
+macro outputFile {
+    "output.js"
+}
+
+macro EOF {
+    "LANGLANG_TOKEN_EOF"
+}
+
+macro out {
+    '\n' concat outputFile fAppend
+}
+
+macro error {
+    puts
+    outputFile fDelete 
+    1 exit
+}
+
+// Check arguments
+count dup 0 = if {
+    "ERROR: No arguments provided." puts
+    "Usage: coly langlang <file>" puts
+    1 exit
+} 1 > if {
+    "ERROR: Too many arguments provided." puts
+    "Usage: coly langlang <file>" puts
+    1 exit
+}
+
+// Open file
+dup fExists false = if {
+    "ERROR: File does not exist." puts
+    1 exit
+}
+fRead
+
+// Lexer
+dup trim "" = if {
+    "ERROR: File is empty." puts
+    1 exit
+}
+
+'\n' ' ' replace
+'\r'  '' replace
+'\t'  '' replace
+
+';' split EOF reverse
+
+// Compiler
+"" outputFile fWrite
+"let stack = [];\n(()=>{" out
+
+set start
+
+dup EOF = if {
+    "\n})();" outputFile fAppend
+    "Compilation finished in " elapsed atos concat " seconds." concat puts
+    // "Output:\n" puts
+    // "node output.js" system puts
+    0 exit
+}
+
+trim // Remove trailing and leading whitespace
+
+// Whitespace
+dup ' ' = if {
+    dump
+    jump start
+}
+dup '' = if {
+    dump
+    jump start
+}
+
+// Comments
+dup "//" startswith if {
+    dump
+    jump start
+}
+
+// Operators
+dup '+' = if {
+    dump
+    "stack.push(stack.pop() + stack.pop());" out
+    jump start
+}
+
+dup '-' = if {
+    dump
+    "a=stack.pop();b=stack.pop();stack.push(b-a);" out
+    jump start
+}
+
+dup '*' = if {
+    dump
+    "stack.push(stack.pop() * stack.pop());" out
+    jump start
+}
+
+dup '/' = if {
+    dump
+    "a=stack.pop();b=stack.pop();stack.push(b/a);" out
+    jump start
+}
+
+// Comparators
+dup '>' = if {
+    dump
+    "a=stack.pop();b=stack.pop();stack.push(b>a);" out
+    jump start
+}
+
+dup '=>' = if {
+    dump
+    "a=stack.pop();b=stack.pop();stack.push(b>=a);" out
+    jump start
+}
+
+dup '<' = if {
+    dump
+    "a=stack.pop();b=stack.pop();stack.push(b<a);" out
+    jump start
+}
+
+dup '=<' = if {
+    dump
+    "a=stack.pop();b=stack.pop();stack.push(b<=a);" out
+    jump start
+}
+
+dup '=' = if {
+    dump
+    "a=stack.pop();b=stack.pop();stack.push(b==a);" out
+    jump start
+}
+
+// Keywords
+dup "log" = if {
+    dump
+    "console.log(stack.pop());" out
+    jump start
+}
+
+dup "pop" = if {
+    dump
+    "stack.pop();\n" out
+    jump start
+}
+
+dup "dup" = if {
+    dump
+    "stack.push(stack[stack.length-1]);" out
+    jump start
+}
+
+dup "swap" = if {
+    dump
+    "a=stack.pop();b=stack.pop();stack.push(a);stack.push(b);" out
+    jump start
+}
+
+dup "rev" = if {
+    dump
+    "stack.reverse();" out
+    jump start
+}
+
+dup "len" = if {
+    dump
+    "stack.push(stack.length);" out
+    jump start
+}
+
+dup "clr" = if {
+    dump
+    "stack = [];" out
+    jump start
+}
+
+dup "exit" = if {
+    dump
+    "process.exit(stack.pop());" out
+    jump start
+}
+
+dup "custom" = if {
+    dump out
+    jump start
+}
+
+// Control flow
+dup "if" = if {
+    dump
+    "if (stack.pop()) {" out
+    jump start
+}
+
+dup "else" = if {
+    dump
+    "} else {" out
+    jump start
+}
+
+dup "close" = if {
+    dump
+    "}" out
+    jump start
+}
+
+dup '"' startswith if {
+    dup '"' endswith if {
+        "stack.push(" out out ");" out
+        jump start
+    }
+    "ERROR: Unterminated String." error
+}
+
+// Else
+dup ' ' contains if {
+    ' ' revsplit
+    jump start
+}
+
+"// push (ELSE)" out
+"stack.push(" out out ");" out
+
+jump start
