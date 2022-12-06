@@ -15,4 +15,4 @@ $ langlang <file>
 ```
 
 ## Examples
-- [Hello, world!](https://github.com/AaronMarcusDev/Langlang/examples/helloworld.ll)
+- [Hello, world!](https://github.com/AaronMarcusDev/Langlang/blob/main/examples/helloworld.ll)
