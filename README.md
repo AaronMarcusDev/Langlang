@@ -3,7 +3,7 @@ Langlang is a toy programming language that compiles to Javascript.\
 It was written in my (other) own programming language, [Coly](https://github.com/AaronMarcusDev/Coly).
 
 ## Build
-Langlang can be built using
+Langlang can be compiled to an executable using
 ```bash
 $ coly build langlang.coly
 ```
