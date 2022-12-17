@@ -1,6 +1,6 @@
 // Macros
 macro outputFile {
-    "output.js"
+    "app.js"
 }
 
 macro EOF {
