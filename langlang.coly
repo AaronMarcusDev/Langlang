@@ -142,6 +142,12 @@ dup "log" = if {
     jump start
 }
 
+dup "peek" = if {
+    dump
+    "console.log(stack[stack.length-1]);" out
+    jump start
+}
+
 dup "pop" = if {
     dump
     "stack.pop();\n" out
