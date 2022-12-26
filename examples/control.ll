@@ -3,3 +3,6 @@
 else
     ;"One is not equal to one!"; log
 close
+
+// OUTPUT:
+// One is equal to one!
