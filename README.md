@@ -16,3 +16,6 @@ $ langlang <file>
 
 ## Examples
 - [Hello, world!](https://github.com/AaronMarcusDev/Langlang/blob/main/examples/helloworld.ll)
+- [contol-flow](https://github.com/AaronMarcusDev/Langlang/blob/main/examples/control.ll)
+- [equality](https://github.com/AaronMarcusDev/Langlang/blob/main/examples/equality.ll)
+- [string](https://github.com/AaronMarcusDev/Langlang/blob/main/examples/string.ll)
