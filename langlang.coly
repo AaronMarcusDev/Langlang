@@ -214,6 +214,18 @@ dup "close" = if {
     jump start
 }
 
+dup "loop" = if {
+    dump
+    "while (true) {" out
+    jump start
+}
+
+dup "break" = if {
+    dump
+    "break;" out
+    jump start
+}
+
 dup '"' startswith if {
     dup '"' endswith if {
         "stack.push(" out out ");" out
