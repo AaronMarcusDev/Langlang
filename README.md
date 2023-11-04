@@ -19,3 +19,4 @@ $ langlang <file>
 - [contol-flow](https://github.com/AaronMarcusDev/Langlang/blob/main/examples/control.ll)
 - [equality](https://github.com/AaronMarcusDev/Langlang/blob/main/examples/equality.ll)
 - [string](https://github.com/AaronMarcusDev/Langlang/blob/main/examples/string.ll)
+- [loop](https://github.com/AaronMarcusDev/Langlang/blob/main/examples/loop.ll)
